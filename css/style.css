@@ -1,0 +1,42 @@
+body {
+    background: black;
+    margin: 0px;
+    border: 2px solid white;
+    width:fit-content;
+    margin-top: 100px;
+    margin-left: 100px;
+    padding: 20px;
+}
+
+.output-box {
+    background: white; 
+    padding: 80px;
+    border: 1px solid  white; 
+    border-radius: 1pc 1pc 1pc 1pc;
+    color: red;
+}
+
+
+.number-container {
+    margin-top: 80px;
+    background: white;
+    padding: 20px;
+    border: 1px solid white;
+    border-radius: 1pc 1pc 1pc 1pc;
+    justify-content: center;
+    align-items: center;
+}
+
+button{
+    height:100px;
+    width: 200px;
+    font-size: 50px;
+    background:black;
+    color:white;
+}
+
+
+
+
+
+
