@@ -1,282 +1,207 @@
 const outputBox = document.querySelector(".output-box");
-const numberContainer = document.querySelector(".number-container");
-const nineToSix = document.querySelector(".nine-six");
-const fourTosix = document.querySelector(".four-six");
-const oneToThree = document.querySelector(".one-three");
-const signs = document.querySelector(".signs"); 
+const fullStop = document.querySelector("#fullstop");
 
-// numbers
-const one = document.querySelector("#one"); 
-const two = document.querySelector("#two");
-const three = document.querySelector("#three"); 
-const four = document.querySelector("#four"); 
-const five = document.querySelector("#five"); 
-const six = document.querySelector("#six"); 
-const seven = document.querySelector("#seven"); 
-const eight = document.querySelector("#eight"); 
-const nine = document.querySelector("#nine");
-const zero = document.querySelector("#zero")
-
-// operators 
-const del = document.querySelector("#delete"); 
-const ac = document.querySelector("#AC"); 
-const multiply = document.querySelector("#multiply"); 
-const divided = document.querySelector("#divided"); 
-const addition = document.querySelector("#addition"); 
-const subtract = document.querySelector("#subtract"); 
-const equation = document.querySelector("#equal");
-const expo = document.querySelector("#exponenet"); 
-const fullStop = document.querySelector("#fullstop"); 
-const Answer = document.querySelector("#answer"); 
-
-function el1() {
-    one.addEventListener("click",(event)=>{
-
-    });
-
-}
-
-
-
-
-
-
-
-
-function add(firstValue,secondValue){
-    return Number(firstValue) + Number(secondValue);
-}
-
-function multiplication(firstValue,secondValue){
-    return Number(firstValue) * Number(secondValue);
-}
-
-function  division(firstValue,secondValue){
-    return Number(firstValue) / Number(secondValue);
-}
-
-function subtraction(firstValue,secondValue){
-    return Number(firstValue) - Number(secondValue);
-}
-
-function exponent(firstValue,secondValue){
-    return Number(firstValue) ** Number(secondValue);
-}
-
-function el1() {
-    one.addEventListener("click",()=>{
-        if(pressOperator==false){
-
-            firstValue +="1";
-            outputBox.innerHTML=firstValue;
-
-        }else {
-            outputBox.innerHTML="";
-            secondValue +="1";
-            outputBox.innerHTML=secondValue;
-            
-        }
-    });
-}
-
-function el2() {
-    two.addEventListener("click",(event)=>{
-        if(pressOperator==false){
-
-            firstValue +="2";
-            outputBox.innerHTML=firstValue;
-
-        }else {
-            outputBox.innerHTML="";
-            secondValue +="2";
-            outputBox.innerHTML=secondValue;
-        }
-    });
-}
-
-function el3() {
-    three.addEventListener("click",(event)=>{
-        if(pressOperator==false){
-
-            firstValue +="3";
-            outputBox.innerHTML=firstValue;
-
-        }else {
-            outputBox.innerHTML="";
-            secondValue +="3";
-            outputBox.innerHTML=secondValue;
-        }
-    });
-    
-}
-
-function el4() {
-    four.addEventListener("click",(event)=>{
-        if(pressOperator==false){
-
-            firstValue +="4";
-            outputBox.innerHTML=firstValue;
-
-        }else {
-            outputBox.innerHTML="";
-            secondValue +="4";
-            outputBox.innerHTML=secondValue;
-            
-        }
-    });
-}
-
-function el5(){
-    five.addEventListener("click",(event)=>{
-        if(pressOperator==false){
-
-            firstValue +="5";
-            outputBox.innerHTML=firstValue;
-
-        }else {
-            outputBox.innerHTML="";
-            secondValue +="5";
-            outputBox.innerHTML=secondValue;
-            
-        }
-    });
-}
-
-function el6 (){
-    six.addEventListener("click",(event)=>{
-        if(pressOperator==false){
-
-            firstValue +="6";
-            outputBox.innerHTML=firstValue;
-
-        }else {
-            outputBox.innerHTML="";
-            secondValue +="6";
-            outputBox.innerHTML=secondValue;
-            pressOperator  = false; 
-        }
-    });
-
-}
-
-function el7 () {
-    seven.addEventListener("click",(event)=>{
-       if(pressOperator==false){
-
-            firstValue +="7";
-            outputBox.innerHTML=firstValue;
-
-        }else {
-            outputBox.innerHTML="";
-            secondValue +="7";
-            outputBox.innerHTML=secondValue;
-        }
-    });
-}
-
-function el8() {
-    eight.addEventListener("click",(event)=>{
-        if(pressOperator==false){
-
-            firstValue +="8";
-            outputBox.innerHTML=firstValue;
-
-        }else {
-            outputBox.innerHTML="";
-            secondValue +="8";
-            outputBox.innerHTML=secondValue;
-        }
-
-        
-    });
-}
-
-function el9 () {
-    nine.addEventListener("click",(event) =>{
-        if(pressOperator==false){
-
-            firstValue +="9";
-            outputBox.innerHTML=firstValue;
-
-        }else {
-            outputBox.innerHTML="";
-            secondValue +="9";
-            outputBox.innerHTML=secondValue;
-            
-        }
-    });
-}
-
-function el0 () {
-    zero.addEventListener("click",()=>{
-        if(pressOperator==false){
-
-            firstValue +="0";
-            outputBox.innerHTML=firstValue;
-
-        }else {
-            outputBox.innerHTML="";
-            secondValue +="0";
-            outputBox.innerHTML=secondValue;
-        }
-
-    });    
-}
-
-function elstop(){
-    fullStop.addEventListener("click",(event)=>{
-
-            if(pressOperator==false){
-                if(firstValue!="" && fullstopCount<1){
-                    fullstopCount++;
-                    firstValue +=".";
-                    outputBox.innerHTML =firstValue;
-                }
-                fullstopCount=0;
-            }else {
-                if(secondValue!="" && fullstopCount<1){
-                    fullstopCount++;
-                    secondValue += ".";
-                    outputBox.innerHTML = secondValue;
-                }
-            }
-
-    });
-}
-
-
-// sign 
-function elplus() {
-    addition.addEventListener("click",()=>{
-        if(firstValue==""){
-            outputBox.innerHTML ="";
-        }
-        else{
-            sign = " +";
-            outputBox.innerHTML += sign;
-            pressOperator = true;
-            
-        }
-    });
-}
-
-let firstValue = ""; 
-let secondValue = ""; 
+// state
+let firstValue = "";
+let secondValue = "";
 let sign = "";
 let pressOperator = false;
-let fullstopCount =0;
+let justEvaluated = false; // true right after "=" so the next digit starts fresh
+let answer = 0;
 
+// math
+function add(a, b) { return Number(a) + Number(b); }
+function subtraction(a, b) { return Number(a) - Number(b); }
+function multiplication(a, b) { return Number(a) * Number(b); }
+function division(a, b) { return Number(a) / Number(b); }
+function exponent(a, b) { return Number(a) ** Number(b); }
 
-el1();
-el2();
-el3();
-el4();
-el5();
-el6();
-el7();
-el8();
-el9();
-el0();
+function calculate(a, op, b) {
+    switch (op) {
+        case "+": return add(a, b);
+        case "-": return subtraction(a, b);
+        case "x": return multiplication(a, b);
+        case "/": return division(a, b);
+        case "^": return exponent(a, b);
+    }
+}
+
+// a number that is empty or just a minus sign isn't a real number yet
+function isIncomplete(v) {
+    return v === "" || v === "-";
+}
+
+// display
+function render() {
+    const text = pressOperator
+        ? `${firstValue} ${sign} ${secondValue}`
+        : firstValue;
+    outputBox.textContent = text || "0";
+}
+
+function resetAll() {
+    firstValue = "";
+    secondValue = "";
+    sign = "";
+    pressOperator = false;
+    justEvaluated = false;
+    render();
+}
+
+function showError(message) {
+    resetAll();
+    outputBox.textContent = message;
+}
+
+// if the last action was "=", typing a new number starts a new calculation
+function startFreshIfNeeded() {
+    if (justEvaluated && !pressOperator) {
+        firstValue = "";
+        justEvaluated = false;
+    }
+}
+
+// digits
+function appendDigit(value, d) {
+    if (value === "0") return d;          // no leading zeros
+    if (value === "-0") return "-" + d;
+    return value + d;
+}
+
+function addDigit(d) {
+    startFreshIfNeeded();
+    if (!pressOperator) {
+        firstValue = appendDigit(firstValue, d);
+    } else {
+        secondValue = appendDigit(secondValue, d);
+    }
+    render();
+}
+
+function addDot() {
+    startFreshIfNeeded();
+    if (pressOperator == false) {
+        if (!firstValue.includes(".")) {
+            if (isIncomplete(firstValue)) firstValue += "0";
+            firstValue += ".";
+            render();
+        }
+    } else {
+        if (!secondValue.includes(".")) {
+            if (isIncomplete(secondValue)) secondValue += "0";
+            secondValue += ".";
+            render();
+        }
+    }
+}
+
+function elstop() {
+    fullStop.addEventListener("click", addDot);
+}
+
+// evaluates firstValue sign secondValue. Returns the result, or null on error.
+function evaluate() {
+    const result = calculate(firstValue, sign, secondValue);
+    if (!Number.isFinite(result)) return null; // division by zero, overflow
+    return parseFloat(result.toPrecision(12)); // 0.1 + 0.2 -> 0.3
+}
+
+// operators
+function setOperator(op) {
+    // "-" at the very start (or after an operator) begins a negative number
+    if (op === "-" && firstValue === "" ) {
+        firstValue = "-";
+        return render();
+    }
+    if (op === "-" && pressOperator && secondValue === "") {
+        secondValue = "-";
+        return render();
+    }
+
+    if (isIncomplete(firstValue)) return;
+
+    if (pressOperator && isIncomplete(secondValue)) {
+        secondValue = "";        // changed my mind: swap the operator
+        sign = op;
+    } else if (pressOperator) {
+        const result = evaluate(); // chain: 1 + 2 + -> 3 +
+        if (result === null) return showError("Can't divide by 0");
+        answer = result;
+        firstValue = String(result);
+        secondValue = "";
+        sign = op;
+    } else {
+        sign = op;
+        pressOperator = true;
+    }
+    justEvaluated = false;
+    render();
+}
+
+function elequal() {
+    if (!pressOperator || isIncomplete(secondValue)) return;
+    const result = evaluate();
+    if (result === null) return showError("Can't divide by 0");
+    answer = result;
+    firstValue = String(result);
+    secondValue = "";
+    sign = "";
+    pressOperator = false;
+    justEvaluated = true;
+    render();
+}
+
+function eldelete() {
+    if (justEvaluated) return;
+    if (!pressOperator) {
+        firstValue = firstValue.slice(0, -1);
+    } else if (secondValue === "") {
+        sign = "";
+        pressOperator = false;   // deleting the operator
+    } else {
+        secondValue = secondValue.slice(0, -1);
+    }
+    render();
+}
+
+function elanswer() {
+    startFreshIfNeeded();
+    if (!pressOperator) firstValue = String(answer);
+    else secondValue = String(answer);
+    render();
+}
+
+// wiring: buttons
+const digitIds = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+digitIds.forEach((id, i) => {
+    document.querySelector("#" + id).addEventListener("click", () => addDigit(String(i)));
+});
+
 elstop();
 
-elplus();
+document.querySelector("#addition").addEventListener("click", () => setOperator("+"));
+document.querySelector("#subtract").addEventListener("click", () => setOperator("-"));
+document.querySelector("#multiply").addEventListener("click", () => setOperator("x"));
+document.querySelector("#divided").addEventListener("click", () => setOperator("/"));
+document.querySelector("#exponent").addEventListener("click", () => setOperator("^"));
+document.querySelector("#equal").addEventListener("click", elequal);
+document.querySelector("#delete").addEventListener("click", eldelete);
+document.querySelector("#AC").addEventListener("click", resetAll);
+document.querySelector("#answer").addEventListener("click", elanswer);
+
+// wiring: keyboard
+document.addEventListener("keydown", (event) => {
+    const key = event.key;
+    if (key >= "0" && key <= "9") addDigit(key);
+    else if (key === ".") addDot();
+    else if (key === "+") setOperator("+");
+    else if (key === "-") setOperator("-");
+    else if (key === "*" || key === "x") setOperator("x");
+    else if (key === "/") { event.preventDefault(); setOperator("/"); }
+    else if (key === "^") setOperator("^");
+    else if (key === "=" || key === "Enter") { event.preventDefault(); elequal(); }
+    else if (key === "Backspace") eldelete();
+    else if (key === "Escape") resetAll();
+});
+
+render();
